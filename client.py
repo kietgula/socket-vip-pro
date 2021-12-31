@@ -8,7 +8,7 @@ SEVER_PORT = 65432
 FORMAT = "utf8"
 HOST = "127.0.0.1"
 
- 
+
 window=Tk()
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -16,37 +16,43 @@ def main_window():
     global window
     window.destroy()
     window=Tk()
-    window.geometry("512x512")
+    window.geometry("216x216")
     
     Login_button=Button(window, text="Sign out", command=login_window)
-    Login_button.grid(column=10,row=10)
+    Login_button.place(x=110,y=50)
+    
+    intro_lb=Label(window, text="Click on currency tab\n on the left side \nfor your information").place(x=80,y=80)
  
     #Tạo 7 button tiền tệ
     AUD_button=Button(window,text="AUD", command=lambda: getMoney("AUD"))
     AUD_button.grid(column=0,row=1)
     CAD_button=Button(window,text="CAD", command=lambda: getMoney("CAD"))
-    CAD_button.grid(column=1,row=1)
+    CAD_button.grid(column=0,row=2)
     CHF_button=Button(window,text="CHF", command=lambda: getMoney("CHF"))
-    CHF_button.grid(column=2,row=1)
+    CHF_button.grid(column=0,row=3)
     EUR_button=Button(window,text="EUR", command=lambda: getMoney("EUR"))
-    EUR_button.grid(column=3,row=1)
+    EUR_button.grid(column=0,row=4)
     GBP_button=Button(window, text="GBP", command=lambda: getMoney("GBP"))
-    GBP_button.grid(column=0, row=2)
+    GBP_button.grid(column=0, row=5)
     JPY_button=Button(window, text="JPY", command=lambda: getMoney("JPY"))
-    JPY_button.grid(column=1, row=2)
+    JPY_button.grid(column=0, row=6)
     USD_button=Button(window, text="USD", command=lambda: getMoney("USD"))
-    USD_button.grid(column=1, row=3)
+    USD_button.grid(column=0, row=7)
     
     #Tạo Button ngắt kết nối
     disconnect_button=Button(window, text="Disconnect", command = disconnect)
-    disconnect_button.place(x=370, y=475)
+    disconnect_button.place(x=110, y=10)
 
 def disconnect():
     global s 
+    global window
+    offline_lb=Label(window, text="offline").place(x=62,y=11)
+    hide_info_money=Label(window, text="                          \n                           \n                      \n                         ").place(x=80, y=80)
     s.sendall("disconnect".encode(FORMAT))
     
 
 def getMoney(name):
+    global Info
     try:
         global window
         global s 
@@ -55,9 +61,10 @@ def getMoney(name):
         s.sendall(name.encode(FORMAT)) #4
         data = s.recv(1024).decode(FORMAT) #7
         
-        Info = Label(window, text = data, border=16).grid(column=9, row = 9)
+        Info = Label(window, text = data, border=16).place(x=80,y=80)
     except:
-        Info = Label(window, text = "Disconnected").grid(column=9, row = 9)
+        hide_info_money=Label(window, text="                          \n                           \n                      \n                         ").place(x=80, y=80)
+        Info = Label(window, text = "Disconnected").place(x=80,y=80)
     
     
  
@@ -172,7 +179,7 @@ def ip_check(ip, port):
         s.connect((ip, int(port)))
         login_window()
     except:
-        connectFail_lb=Label(window, text="offline/disconnect/wrong").grid(column=0, row=2)
+        connectFail_lb=Label(window, text="fail connect").grid(column=0, row=3)
         print(ip)
         print(port)
          
@@ -180,14 +187,19 @@ def ip_check(ip, port):
 def start_window():
     global window
     window.geometry("256x128")
+    #ip_server=Label(window, text="ip").grid(column)
     host_entry=Entry(window, text="enter host ip")
-    host_entry.grid(column=0,row=0)
+    host_entry.grid(column=0,row=1)
+    
+    ip_lb=Label(window, text="ip").grid(column=0,row=0)
+    be_lb=Label(window, text=":").grid(column=1,row=1)
+    port_lb=Label(window,text="port").grid(column=2,row=0)
     
     port_entry=Entry(window, text="enter port")
-    port_entry.grid(column=1,row=0)
+    port_entry.grid(column=2,row=1)
     
-    connect_button=Button(text="connect", command=lambda:ip_check(host_entry.get(), port_entry.get()))
-    connect_button.grid(column=0,row=1)
+    connect_button=Button(text="connect", fg="black", command=lambda:ip_check(host_entry.get(), port_entry.get()))
+    connect_button.grid(column=0,row=2)
     
     
  

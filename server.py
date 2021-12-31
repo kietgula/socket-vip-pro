@@ -106,7 +106,7 @@ def getData(conn : socket, addr):
     Buy = str(data["buy"])
     Sell = str(data["sell"])
     
-    msg = "currency:"+ Name +" Buy:"+ Buy + " Sell:"+ Sell
+    msg = "currency: "+ Name +"\n Buy: "+ Buy + "vnđ\n Sell: "+ Sell +"vnđ"
     
     conn.sendall(msg.encode(FORMAT)) #6
 
