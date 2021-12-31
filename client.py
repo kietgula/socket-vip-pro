@@ -3,6 +3,8 @@ from tkinter import Tk
 import tkinter
 import socket
 import json
+from datetime import date
+
 
 SEVER_PORT = 65432
 FORMAT = "utf8"
@@ -23,6 +25,7 @@ def main_window():
     
     intro_lb=Label(window, text="Click on currency tab\n on the left side \nfor your information").place(x=80,y=80)
  
+    
     #Tạo 7 button tiền tệ
     AUD_button=Button(window,text="AUD", command=lambda: getMoney("AUD"))
     AUD_button.grid(column=0,row=1)
@@ -65,7 +68,8 @@ def getMoney(name):
     except:
         hide_info_money=Label(window, text="                          \n                           \n                      \n                         ").place(x=80, y=80)
         Info = Label(window, text = "Disconnected").place(x=80,y=80)
-    
+    today = date.today()
+    time_lb=Label(window, text=today).place(x=55, y=182)
     
  
 def login_check(username, password):
