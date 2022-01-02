@@ -25,28 +25,6 @@ def add_User(username, password):
     with open('data_User.js', 'w') as outfile:
         json.dump(data, outfile)
  
-#----------------------------------
- 
-# def check_Login(userName, password):
-#     #data={}
-#     with open('data_User.js') as json_file:
-#         data = json.load(json_file)
-#         for i in data['login']:
-#             if i['userName'] == userName and i['password'] == password:
-#                 return 1
-#     return 0
- 
-#--------------------------------------
- 
-# def check_Available_User(user):
-#     with open('data_User.js') as json_file:
-#         data = json.load(json_file)
-#         print("Da doc duoc file json")
-#         for i in data['login']:
-#             print("ten dau tien", i['username'])
-#             if i['username']==user:
-#                 return 0    #Đã tồn tại
-#     return 1
 def check_Available_User(username):
     print("Dang check")
     with open('data_User.js') as json_file:
@@ -126,23 +104,6 @@ def register(conn:socket, addr):
     if result=='1':
         add_User(username,password)
     
-    
-    
-    # try:
-    #         #print(addr, " registing")
-    #         while 1:
-    #                 userName = conn.recv(1024).decode(FORMAT)
-    #                 password = conn.recv(1024).decode(FORMAT)
-    #                 if check_Available_User(userName)==1:
-    #                     print("ok, singup accepted")
-    #                     conn.sendall("1".encode(FORMAT))
-    #                     add_User(userName, password)
-    #                     return 1
-    #                     break
-    #                 else:
-    #                     conn.sendall("0".encode(FORMAT))
-    # except:
-    #     return 0
  
 def Client(conn:socket, addr):
     global window
