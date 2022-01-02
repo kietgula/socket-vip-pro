@@ -6,10 +6,7 @@ import json
 from datetime import date
 
 
-SEVER_PORT = 65432
 FORMAT = "utf8"
-HOST = "127.0.0.1"
-
 
 window=Tk()
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -116,19 +113,6 @@ def register_check(username, password):
     except:
         fail=Label(text="Disconnected").grid(column=1,row=1)
         
-    
-    # try:
-    #         s.send(userName.encode(FORMAT))
-    #         s.send(passWord.encode(FORMAT))
-    #         temp = s.recv(1024).decode(FORMAT)
-    #         if temp=="1":
-    #            main_window()
-    #         else:
-    #            print("that bai")
-    #            Label(window, text="Dang ky that bai").place(x=0,y=0)
-    # except:
-    #     Label(window, text="Dang ky that bai").place(x=0,y=0)
-    #     exit()
     
  
 def login_window():
